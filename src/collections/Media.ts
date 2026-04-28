@@ -13,17 +13,18 @@ export const Media: CollectionConfig = {
     },
   ],
   upload: {
-    adminThumbnail:'thumbnail',
-    imageSizes:[
+    disableLocalStorage: true,  // ← added this
+    adminThumbnail: 'thumbnail',
+    imageSizes: [
       {
-        name:'thumbnail',
+        name: 'thumbnail',
         width: 300,
-        height:300,
+        height: 300,
       },
       {
-        name:'banner',
-        width:1024,
-        height:640,
+        name: 'banner',
+        width: 1024,
+        height: 640,
       }
     ]
   },
