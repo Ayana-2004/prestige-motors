@@ -4,8 +4,8 @@ import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
+import 'dotenv/config'
 import { cloudStoragePlugin } from '@payloadcms/plugin-cloud-storage'
-import { cloudinaryAdapter } from '@payloadcms/plugin-cloud-storage/cloudinary'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
@@ -35,19 +35,16 @@ export default buildConfig({
   }),
   sharp,
   plugins: [
-    cloudStoragePlugin({
-      collections: {
-        media: {
-          adapter: cloudinaryAdapter({
-            config: {
-              cloud_name: process.env.CLOUDINARY_CLOUD_NAME || '',
-              api_key: process.env.CLOUDINARY_API_KEY || '',
-              api_secret: process.env.CLOUDINARY_API_SECRET || '',
-            },
-            folder: 'prestige-motors',
-          }),
-        },
-      },
-    }),
+    // cloudStoragePlugin({
+    //   collections: {
+    //     media: {
+    //       adapter: cloudinaryAdapter({
+    //         cloudName: process.env.CLOUDINARY_NAME,
+    //         apiKey: process.env.CLOUDINARY_API_KEY,
+    //         apiSecret: process.env.CLOUDINARY_API_SECRET,
+    //       }),
+    //     },
+    //   },
+    // }),
   ],
 })
