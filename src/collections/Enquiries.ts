@@ -34,7 +34,6 @@ export const Enquiries: CollectionConfig = {
     },
   ],
 
-  // 🔥 This runs every time a new enquiry is submitted
   hooks: {
     afterChange: [
       async ({ doc, operation }) => {
@@ -45,14 +44,12 @@ export const Enquiries: CollectionConfig = {
               phone: doc.phone,
               email: doc.email,
               message: doc.message || 'No message provided',
-              car: doc.car,
             })
             await sendWhatsAppMessage({
               name: doc.name,
               phone: doc.phone,
               email: doc.email,
               message: doc.message || 'No message provided',
-              car: doc.car,
             })
             console.log('✅ Email and WhatsApp sent!')
           } catch (err) {

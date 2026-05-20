@@ -5,7 +5,6 @@ import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 import 'dotenv/config'
-import { cloudStoragePlugin } from '@payloadcms/plugin-cloud-storage'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
@@ -34,17 +33,5 @@ export default buildConfig({
     url: process.env.DATABASE_URL || '',
   }),
   sharp,
-  plugins: [
-    // cloudStoragePlugin({
-    //   collections: {
-    //     media: {
-    //       adapter: cloudinaryAdapter({
-    //         cloudName: process.env.CLOUDINARY_NAME,
-    //         apiKey: process.env.CLOUDINARY_API_KEY,
-    //         apiSecret: process.env.CLOUDINARY_API_SECRET,
-    //       }),
-    //     },
-    //   },
-    // }),
-  ],
+  plugins: [],
 })
