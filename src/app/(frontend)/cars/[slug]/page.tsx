@@ -26,16 +26,8 @@ export default async function CarDetails({ params }: { params: Promise<{ slug: s
 
   if (!car) {
     return (
-      <main
-        style={{
-          background: '#000',
-          color: '#fff',
-          minHeight: '100vh',
-          padding: '40px',
-        }}
-      >
+      <main style={{ background: '#000', color: '#fff', minHeight: '100vh', padding: '40px' }}>
         <h1>Car Not Found</h1>
-
         <Link href="/" style={{ color: '#fff' }}>
           Back Home
         </Link>
@@ -56,17 +48,12 @@ export default async function CarDetails({ params }: { params: Promise<{ slug: s
       {/* BACK */}
       <Link
         href="/"
-        style={{
-          color: '#d4af37',
-          textDecoration: 'none',
-          fontSize: '18px',
-          fontWeight: '700',
-        }}
+        style={{ color: '#d4af37', textDecoration: 'none', fontSize: '18px', fontWeight: '700' }}
       >
         ← Back Home
       </Link>
 
-      {/* PREMIUM HERO SECTION */}
+      {/* HERO */}
       <div
         style={{
           marginTop: '30px',
@@ -77,7 +64,6 @@ export default async function CarDetails({ params }: { params: Promise<{ slug: s
           marginBottom: '50px',
         }}
       >
-        {/* LEFT */}
         <div>
           <p
             style={{
@@ -89,43 +75,21 @@ export default async function CarDetails({ params }: { params: Promise<{ slug: s
           >
             LUXURY PERFORMANCE SERIES
           </p>
-
           <h1
-            style={{
-              fontSize: '72px',
-              lineHeight: '1.1',
-              fontWeight: '900',
-              marginBottom: '18px',
-            }}
+            style={{ fontSize: '72px', lineHeight: '1.1', fontWeight: '900', marginBottom: '18px' }}
           >
             {car.title}
           </h1>
-
-          <p
-            style={{
-              color: '#bbb',
-              fontSize: '20px',
-              lineHeight: '1.8',
-              marginBottom: '30px',
-            }}
-          >
+          <p style={{ color: '#bbb', fontSize: '20px', lineHeight: '1.8', marginBottom: '30px' }}>
             Crafted for prestige, engineered for speed, designed for those who demand excellence.
           </p>
-
-          <div
-            style={{
-              display: 'flex',
-              gap: '15px',
-              flexWrap: 'wrap',
-            }}
-          >
+          <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap' }}>
             <div style={specBox}>💰 ₹ {car.price}</div>
             <div style={specBox}>⚡ {(car as any).topSpeed || '320 km/h'}</div>
             <div style={specBox}>🔥 {(car as any).horsepower || '1020 hp'}</div>
           </div>
         </div>
 
-        {/* RIGHT IMAGE */}
         <div>
           {typeof car.featuredImage !== 'string' && car.featuredImage?.url ? (
             <img
@@ -153,14 +117,14 @@ export default async function CarDetails({ params }: { params: Promise<{ slug: s
         }}
       >
         <div style={specBox}>📅 Year: {car.year}</div>
-        <div style={specBox}>🌍 Country: {car.country}</div>
-        <div style={specBox}>⚡ Top Speed: {(car as any).topSpeed || '320 km/h'}</div>
-        <div style={specBox}>🔥 Horsepower: {(car as any).horsepower || '1020 hp'}</div>
+        <div style={specBox}>🌍 Country: {(car as any).country}</div>
+        <div style={specBox}>⚡ Top Speed: {(car as any).topSpeed || 'N/A'}</div>
+        <div style={specBox}>🔥 Horsepower: {(car as any).horsepower || 'N/A'}</div>
         <div style={specBox}>⛽ Fuel: {(car as any).fuel || 'Petrol / EV'}</div>
         <div style={specBox}>🏁 Premium Class</div>
       </div>
 
-      {/* TWO COLUMN SECTION */}
+      {/* ABOUT + ENQUIRY */}
       <div
         style={{
           display: 'grid',
@@ -169,7 +133,6 @@ export default async function CarDetails({ params }: { params: Promise<{ slug: s
           alignItems: 'start',
         }}
       >
-        {/* ABOUT */}
         <div
           style={{
             background: '#111',
@@ -178,28 +141,72 @@ export default async function CarDetails({ params }: { params: Promise<{ slug: s
             padding: '30px',
           }}
         >
-          <h2
-            style={{
-              fontSize: '34px',
-              marginBottom: '18px',
-            }}
-          >
-            About This Vehicle
-          </h2>
-
-          <p
-            style={{
-              color: '#bbb',
-              lineHeight: '1.9',
-              fontSize: '18px',
-            }}
-          >
-            {car.description ||
+          <h2 style={{ fontSize: '34px', marginBottom: '18px' }}>About This Vehicle</h2>
+          <p style={{ color: '#bbb', lineHeight: '1.9', fontSize: '18px' }}>
+            {(car as any).description ||
               `${car.title} is crafted for drivers who demand elite luxury, cutting-edge technology, road presence and world-class performance. Every line reflects prestige and power.`}
           </p>
+
+          {/* EXTRA DETAILS */}
+          <div
+            style={{
+              marginTop: '24px',
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: '12px',
+            }}
+          >
+            {(car as any).engine && (
+              <div
+                style={{
+                  background: '#1a1a1a',
+                  padding: '14px',
+                  borderRadius: '12px',
+                  color: '#ccc',
+                }}
+              >
+                🔧 Engine: {(car as any).engine}
+              </div>
+            )}
+            {(car as any).transmission && (
+              <div
+                style={{
+                  background: '#1a1a1a',
+                  padding: '14px',
+                  borderRadius: '12px',
+                  color: '#ccc',
+                }}
+              >
+                ⚙️ Transmission: {(car as any).transmission}
+              </div>
+            )}
+            {(car as any).color && (
+              <div
+                style={{
+                  background: '#1a1a1a',
+                  padding: '14px',
+                  borderRadius: '12px',
+                  color: '#ccc',
+                }}
+              >
+                🎨 Color: {(car as any).color}
+              </div>
+            )}
+            {(car as any).mileage && (
+              <div
+                style={{
+                  background: '#1a1a1a',
+                  padding: '14px',
+                  borderRadius: '12px',
+                  color: '#ccc',
+                }}
+              >
+                📍 Mileage: {(car as any).mileage}
+              </div>
+            )}
+          </div>
         </div>
 
-        {/* ENQUIRY FORM */}
         <EnquiryForm carId={car.id} />
       </div>
     </main>

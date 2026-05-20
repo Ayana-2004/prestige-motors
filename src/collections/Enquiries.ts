@@ -39,17 +39,24 @@ export const Enquiries: CollectionConfig = {
       async ({ doc, operation }) => {
         if (operation === 'create') {
           try {
+            const carName =
+              typeof doc.car === 'object'
+                ? doc.car?.title || doc.car?.name || 'Unknown Car'
+                : doc.car
+
             await sendEnquiryEmail({
               name: doc.name,
               phone: doc.phone,
               email: doc.email,
               message: doc.message || 'No message provided',
+              car: carName,
             })
             await sendWhatsAppMessage({
               name: doc.name,
               phone: doc.phone,
               email: doc.email,
               message: doc.message || 'No message provided',
+              car: carName,
             })
             console.log('✅ Email and WhatsApp sent!')
           } catch (err) {
