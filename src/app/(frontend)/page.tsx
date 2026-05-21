@@ -31,6 +31,16 @@ export default async function HomePage({
       }}
     >
       <style>{`
+        @keyframes fadeInUp {
+          from { opacity: 0; transform: translateY(30px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInBottom {
+          from { opacity: 0; transform: translateY(60px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
         .pm-wrapper { padding: 28px; }
 
         .pm-topbar {
@@ -40,6 +50,7 @@ export default async function HomePage({
           margin-bottom: 45px;
           flex-wrap: wrap;
           gap: 10px;
+          animation: fadeInUp 0.6s ease forwards;
         }
         .pm-topbar h2 {
           margin: 0;
@@ -58,6 +69,7 @@ export default async function HomePage({
           background-image: url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1600&q=80');
           background-size: cover;
           background-position: center;
+          animation: fadeInUp 0.8s ease forwards;
         }
         .pm-hero-overlay {
           position: absolute;
@@ -75,25 +87,28 @@ export default async function HomePage({
           font-weight: 700;
           letter-spacing: 3px;
           margin-bottom: 18px;
+          animation: slideInBottom 0.8s ease 0.2s both;
         }
         .pm-hero-title {
           font-size: 78px;
           line-height: 1.1;
           margin-bottom: 20px;
           font-weight: 900;
+          animation: slideInBottom 0.8s ease 0.4s both;
         }
         .pm-hero-desc {
           color: #ccc;
           font-size: 20px;
           line-height: 1.8;
           margin-bottom: 30px;
+          animation: slideInBottom 0.8s ease 0.6s both;
         }
-
         .pm-search-form {
           display: flex;
           align-items: center;
           flex-wrap: wrap;
           gap: 10px;
+          animation: slideInBottom 0.8s ease 0.8s both;
         }
         .pm-search-input {
           width: 300px;
@@ -115,6 +130,11 @@ export default async function HomePage({
           font-weight: 900;
           cursor: pointer;
           font-size: 16px;
+          transition: transform 0.2s ease, background 0.2s ease;
+        }
+        .pm-search-btn:hover {
+          transform: scale(1.05);
+          background: #c9a227;
         }
         .pm-clear-btn {
           padding: 16px 24px;
@@ -125,6 +145,11 @@ export default async function HomePage({
           font-weight: 900;
           text-decoration: none;
           font-size: 16px;
+          transition: background 0.2s ease, color 0.2s ease;
+        }
+        .pm-clear-btn:hover {
+          background: #d4af37;
+          color: #000;
         }
 
         .pm-grid {
@@ -132,6 +157,7 @@ export default async function HomePage({
           grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
           gap: 32px;
         }
+
         .pm-card {
           background: rgba(255,255,255,0.03);
           border: 1px solid rgba(255,255,255,0.08);
@@ -139,25 +165,26 @@ export default async function HomePage({
           overflow: hidden;
           backdrop-filter: blur(10px);
           box-shadow: 0 20px 50px rgba(0,0,0,0.45);
+          opacity: 0;
+          animation: fadeInUp 0.7s ease forwards;
+          transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
+        .pm-card:hover {
+          transform: translateY(-8px);
+          border-color: #d4af37;
+          box-shadow: 0 30px 60px rgba(212,175,55,0.15);
+        }
+        .pm-card:nth-child(1) { animation-delay: 0.1s; }
+        .pm-card:nth-child(2) { animation-delay: 0.2s; }
+        .pm-card:nth-child(3) { animation-delay: 0.3s; }
+        .pm-card:nth-child(4) { animation-delay: 0.4s; }
+        .pm-card:nth-child(5) { animation-delay: 0.5s; }
+        .pm-card:nth-child(6) { animation-delay: 0.6s; }
+
         .pm-card-body { padding: 24px; }
-        .pm-card-title {
-          font-size: 28px;
-          margin-bottom: 8px;
-          font-weight: 800;
-        }
-        .pm-card-price {
-          color: #d4af37;
-          font-size: 24px;
-          font-weight: 900;
-          margin-bottom: 16px;
-        }
-        .pm-card-specs {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 10px;
-          margin-bottom: 18px;
-        }
+        .pm-card-title { font-size: 28px; margin-bottom: 8px; font-weight: 800; }
+        .pm-card-price { color: #d4af37; font-size: 24px; font-weight: 900; margin-bottom: 16px; }
+        .pm-card-specs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px; }
         .pm-spec-box {
           background: #111;
           padding: 10px 12px;
@@ -179,8 +206,12 @@ export default async function HomePage({
           margin-bottom: 16px;
           font-size: 16px;
           letter-spacing: 1px;
+          transition: background 0.2s ease, transform 0.2s ease;
         }
-
+        .pm-view-btn:hover {
+          background: #c9a227;
+          transform: scale(1.02);
+        }
         .pm-contact {
           border-top: 1px solid #222;
           padding-top: 16px;
@@ -202,10 +233,7 @@ export default async function HomePage({
           letter-spacing: 1px;
           min-width: 40px;
         }
-        .pm-contact-value {
-          color: #ccc;
-          font-size: 14px;
-        }
+        .pm-contact-value { color: #ccc; font-size: 14px; }
 
         @media (max-width: 768px) {
           .pm-wrapper { padding: 16px; }
@@ -272,24 +300,20 @@ export default async function HomePage({
               <div className="pm-card-body">
                 <h2 className="pm-card-title">{car.title}</h2>
                 <p className="pm-card-price">₹ {car.price}</p>
-
                 <div className="pm-card-specs">
                   <div className="pm-spec-box">Year &nbsp; {car.year}</div>
                   <div className="pm-spec-box">{car.country}</div>
                 </div>
-
                 <Link href={`/cars/${car.slug}`} className="pm-view-btn">
                   View Details
                 </Link>
-
-                {/* PROFESSIONAL CONTACT */}
                 <div className="pm-contact">
                   <div className="pm-contact-row">
                     <span className="pm-contact-label">Phone</span>
                     <span className="pm-contact-value">+91 98765 43210</span>
                   </div>
                   <div className="pm-contact-row">
-                    <span className="pm-contact-label">+91 7306228801</span>
+                    <span className="pm-contact-label">Email</span>
                     <span className="pm-contact-value">prestigemotors.notify@gmail.com</span>
                   </div>
                 </div>
